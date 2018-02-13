@@ -51,3 +51,9 @@ The routine follows [Wikipedia](https://en.wikipedia.org/wiki/Chomsky_normal_for
 5. **UNIT**: remove all production which the right side is only a variable
 
 
+## 4 Known Bugs
+* New variables (like `C1` and `Z` in `C1 -> Z Primary`) are introduced using a fixed and coded set:
+```
+variablesJar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "W", "X", "Y", "Z"]
+```
+This strategy could result a limit in vision of a big computation, but it's easily avoidable adding symbols
