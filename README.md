@@ -5,6 +5,7 @@
 The main purpose of this project is to provide a strategy for converting a Context Free Grammar in his Chomsky Normal Form
 
 ## 2 How to use
+The script must be called in a form like ``CFG2CNF.py model.txt``, and it produces an ``out.txt`` file.
 The Grammar G=(V, T, P, S) is read by a `.txt` file, so need a certain formattation, that follow:
 ```
 Terminals:
@@ -21,8 +22,8 @@ AddOp->+ | -;
 MulOp->* | /
 ```
 Where is obvious how T, V and P are loaded (text after *Terminals/Variables/Productions:*), maybe less obviously is selected S as the first Variable from the left.
-
-The script must be called in a form like ``CFG2CNF.py model.txt``, and it produces an ``out.txt`` file. The output corresponding to the above example is:
+**N.B.** the ε-rule symbol is fixed and it's simplly ``e``
+The output corresponding to the above example is:
 ```
 AddOp -> + | -
 Term -> Term B1 | Primary | Factor C1
@@ -40,3 +41,13 @@ C1 -> Z Primary
 Z -> ^
 D1 -> Expr W
 ```
+
+## 3 The Routine
+The routine follows [Wikipedia](https://en.wikipedia.org/wiki/Chomsky_normal_form) formulation of this algorthm, in particular:
+1. **START**: add ``S0->S`` production
+2. **TERM**: replace terminal symbols with variables in production containing boht on the right
+3. **BIN**: make rules binaries, in other words break in more parts rules which right side is longer than 2
+4. **DEL**: eliminate ε-rules and eventually rearrange other productions
+5. **UNIT**: remove all production which the right side is only a variable
+
+
