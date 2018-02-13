@@ -3,6 +3,14 @@ import itertools
 
 left, right = 0, 1
 
+
+def loadModel(modelPath):
+	file = open(modelPath).read()
+	K = (file.split("Variables:\n")[0].replace("Terminals:\n",""))
+	V = (file.split("Variables:\n")[1].split("Productions:\n")[0].replace("Variables:\n",""))
+	P = (file.split("Productions:\n")[1])
+
+	return cleanAlphabet(K), cleanAlphabet(V), cleanProduction(P)
 #Make production easy to work with
 def cleanProduction(expression):
 	result = []

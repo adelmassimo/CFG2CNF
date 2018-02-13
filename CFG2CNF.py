@@ -9,12 +9,6 @@ left, right = 0, 1
 # P = "Start->A B A; Start->a B D; A->a a b; A->e; B->b b a D A; C ->a; D->A"
 # V = "Expr Term AddOp MulOp Factor Primary"
 # K = "+ - ( ) ^ number variable"
-V = open("variables.txt", "r").read()
-K = open("terminals.txt", "r").read()
-P = open("model.txt", "r").read()
-
-
-
 
 
 # Factor	→ Primary	| Factor ^ Primary
@@ -22,6 +16,7 @@ P = open("model.txt", "r").read()
 # AddOp	→ +	| −
 # MulOp	→ *	| /"
 # Productions = []
+K, V, Productions = [],[],[]
 variablesJar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "W", "X", "Y", "Z"]
 
 
@@ -143,9 +138,7 @@ def UNIT(productions, variables):
 
 
 if __name__ == '__main__':
-	K = helper.cleanAlphabet(K)
-	V = V.split(' ')
-	Productions = helper.cleanProduction(P)
+	K, V, Productions = helper.loadModel('model.txt')
 
 	Productions = START(Productions, variables=V)
 	Productions = TERM(Productions, variables=V)
