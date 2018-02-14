@@ -1,21 +1,9 @@
 # -*- coding: utf-8 -*-
 #IT's assumed that starting variable is the first typed
-import helper
+import sys, helper
 
 left, right = 0, 1
 
-# K = "a b c"
-# V = "Start A B C D Z"
-# P = "Start->A B A; Start->a B D; A->a a b; A->e; B->b b a D A; C ->a; D->A"
-# V = "Expr Term AddOp MulOp Factor Primary"
-# K = "+ - ( ) ^ number variable"
-
-
-# Factor	→ Primary	| Factor ^ Primary
-# Primary	→ number	| variable	| ( Expr )
-# AddOp	→ +	| −
-# MulOp	→ *	| /"
-# Productions = []
 K, V, Productions = [],[],[]
 variablesJar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "W", "X", "Y", "Z"]
 
@@ -96,7 +84,6 @@ def DEL(productions):
 	#        – outlaws all left side of productions such that right side is equal to the outlaw
 	#        – aP the productions without outlaws 
 	outlaws, productions = helper.seekAndDestroy(target='e', productions=productions)
-
 	#add new reformulation of old rules
 	for outlaw in outlaws:
 		for production in productions:
@@ -138,7 +125,12 @@ def UNIT(productions, variables):
 
 
 if __name__ == '__main__':
-	K, V, Productions = helper.loadModel('model.txt')
+	if len(sys.argv) > 1:
+		modelPath = str(sys.argv[1])
+	else:
+		modelPath = 'model.txt'
+	
+	K, V, Productions = helper.loadModel( modelPath )
 
 	Productions = START(Productions, variables=V)
 	Productions = TERM(Productions, variables=V)

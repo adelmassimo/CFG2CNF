@@ -13,14 +13,18 @@ Terminals:
 Variables:
 Expr Term AddOp MulOp Factor Primary
 Productions:
-Expr->Term | Expr AddOp Term | AddOp Term;
-Term->Factor | Term MulOp Factor;
-Factor->Primary | Factor ^ Primary;
-Primary->number | variable;
-Primary->( Expr );
-AddOp->+ | -;
-MulOp->* | /
+Expr -> Term | Expr AddOp Term | AddOp Term;
+Term -> Factor | Term MulOp Factor;
+Factor -> Primary | Factor ^ Primary;
+Primary -> number | variable;
+Primary -> ( Expr );
+AddOp -> + | -;
+MulOp -> * | /
 ```
+Is important to:
+* Use spaces between symbols, one space, not more
+* use te ';' character to separate rows in productions: don't use for the last.
+
 Where is obvious how T, V and P are loaded (text after *Terminals/Variables/Productions:*), maybe less obviously is selected S as the first Variable from the left.
 **N.B.** the ε-rule symbol is fixed and it's simplly ``e``
 The output corresponding to the above example is:

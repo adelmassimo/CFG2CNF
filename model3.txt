@@ -1,0 +1,7 @@
+Terminals:
+a b
+Variables:
+S A B
+Productions:
+S -> A B A;
+A -> e

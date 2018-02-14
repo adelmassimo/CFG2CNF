@@ -1,0 +1,12 @@
+Terminals:
++ - ( ) ^ number variable
+Variables:
+Expr Term AddOp MulOp Factor Primary
+Productions:
+Expr -> Term | Expr AddOp Term | AddOp Term;
+Term -> Factor | Term MulOp Factor;
+Factor -> Primary | Factor ^ Primary;
+Primary -> number | variable;
+Primary -> ( Expr );
+AddOp -> + | -;
+MulOp -> * | /

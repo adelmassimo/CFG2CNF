@@ -1,15 +1,17 @@
-AddOp -> + | -
-Term -> Term B1 | Primary | Factor C1
-MulOp -> * | /
-Expr -> Expr A1 | AddOp Term | Term B1 | Primary | Factor C1
-S0 -> Expr A1 | AddOp Term | Term B1 | Primary | Factor C1
-Primary -> Y | variable | X D1
+AddOp ->  U | -
+Term ->  Factor | Term B1
+MulOp ->  * | /
+Expr ->  Term | Expr A1 | AddOp Term
+S0 ->  Term | Expr A1 | AddOp Term
+Primary ->  Y | variable |  D1
 A1 -> AddOp Term
+U -> +
 B1 -> MulOp Factor
 W -> )
-Factor -> Primary | Factor C1
+Factor ->  Primary | Factor C1
 Y -> number
 X -> (
 C1 -> Z Primary
 Z -> ^
-D1 -> Expr W
+D2 -> Expr W
+D1 -> X D2
