@@ -13,7 +13,7 @@ def isUnitary(rule, variables):
 		return True
 	return False
 
-def isUnitarys(rule):
+def isSimple(rule):
 	if rule[left] in V and rule[right][0] in K and len(rule[right]) == 1:
 		return True
 	return False
@@ -34,7 +34,7 @@ def TERM(productions, variables):
 	dictionary = helper.setupDict(productions, variables, terms=K)
 	for production in productions:
 		#check if the production is simple
-		if isUnitarys(production):
+		if isSimple(production):
 			#in that case there is nothing to change
 			newProductions.append(production)
 		else:
@@ -117,7 +117,7 @@ def UNIT(productions, variables):
 	i = 0
 	result = unit_routine(productions, variables)
 	tmp = unit_routine(result, variables)
-	while result != tmp or i < 100:
+	while result != tmp and i < 1000:
 		result = unit_routine(tmp, variables)
 		tmp = unit_routine(result, variables)
 		i+=1
@@ -138,6 +138,6 @@ if __name__ == '__main__':
 	Productions = DEL(Productions)
 	Productions = UNIT(Productions, variables=V)
 	print( helper.prettyForm(Productions) )
-
+	print( len(Productions) )
 	open('out.txt', 'w').write(	helper.prettyForm(Productions) )
 

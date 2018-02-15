@@ -6,8 +6,8 @@ left, right = 0, 1
 
 def loadModel(modelPath):
 	file = open(modelPath).read()
-	K = (file.split("Variables:\n")[0].replace("Terminals:\n",""))
-	V = (file.split("Variables:\n")[1].split("Productions:\n")[0].replace("Variables:\n",""))
+	K = (file.split("Variables:\n")[0].replace("Terminals:\n","").replace("\n",""))
+	V = (file.split("Variables:\n")[1].split("Productions:\n")[0].replace("Variables:\n","").replace("\n",""))
 	P = (file.split("Productions:\n")[1])
 
 	return cleanAlphabet(K), cleanAlphabet(V), cleanProduction(P)
@@ -19,8 +19,8 @@ def cleanProduction(expression):
 	
 	for rule in rawRulse:
 		#Explode evry rule on "->" and make a couple
-		leftSide = rule.split('->')[0].replace(' ','')
-		rightTerms = rule.split('->')[1].split(' | ')
+		leftSide = rule.split(' -> ')[0].replace(' ','')
+		rightTerms = rule.split(' -> ')[1].split(' | ')
 		for term in rightTerms:
 			result.append( (leftSide, term.split(' ')) )
 	return result
