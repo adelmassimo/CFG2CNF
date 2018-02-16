@@ -127,7 +127,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		modelPath = str(sys.argv[1])
 	else:
-		modelPath = 'model3.txt'
+		modelPath = 'model.txt'
 	
 	K, V, Productions = helper.loadModel( modelPath )
 
