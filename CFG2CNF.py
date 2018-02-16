@@ -82,14 +82,16 @@ def DEL(productions):
 	newSet = []
 	#seekAndDestroy throw back in:
 	#        – outlaws all left side of productions such that right side is equal to the outlaw
-	#        – aP the productions without outlaws 
+	#        – productions the productions without outlaws 
 	outlaws, productions = helper.seekAndDestroy(target='e', productions=productions)
 	#add new reformulation of old rules
 	for outlaw in outlaws:
+		#consider every production: old + new resulting important when more than one outlaws are in the same prod.
 		for production in productions + [e for e in newSet if e not in productions]:
 			#if outlaw is present in the right side of a rule
 			if outlaw in production[right]:
 				#the rule is rewrited in all combination of it, rewriting "e" rather than outlaw
+				#this cycle prevent to insert duplicate rules
 				newSet = newSet + [e for e in  helper.rewrite(outlaw, production) if e not in newSet]
 
 	#add unchanged rules and return
@@ -127,7 +129,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		modelPath = str(sys.argv[1])
 	else:
-		modelPath = 'model.txt'
+		modelPath = 'model3.txt'
 	
 	K, V, Productions = helper.loadModel( modelPath )
 
