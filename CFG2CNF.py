@@ -86,11 +86,11 @@ def DEL(productions):
 	outlaws, productions = helper.seekAndDestroy(target='e', productions=productions)
 	#add new reformulation of old rules
 	for outlaw in outlaws:
-		for production in productions:
+		for production in productions + [e for e in newSet if e not in productions]:
 			#if outlaw is present in the right side of a rule
 			if outlaw in production[right]:
 				#the rule is rewrited in all combination of it, rewriting "e" rather than outlaw
-				newSet = newSet + helper.rewrite(outlaw, production)
+				newSet = newSet + [e for e in  helper.rewrite(outlaw, production) if e not in newSet]
 
 	#add unchanged rules and return
 	return newSet + ([productions[i] for i in range(len(productions)) 
@@ -109,8 +109,7 @@ def unit_routine(rules, variables):
 		for rule in rules:
 			if uni[right]==rule[left]:
 				result.append( (uni[left],rule[right]) )
-	# for rule in rules:
-	# 	result.append( (rule[left], [dictionary[symbol] if symbol in dictionary else symbol for symbol in rule[right]]) )
+	
 	return result
 
 def UNIT(productions, variables):
@@ -128,7 +127,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		modelPath = str(sys.argv[1])
 	else:
-		modelPath = 'model.txt'
+		modelPath = 'model3.txt'
 	
 	K, V, Productions = helper.loadModel( modelPath )
 
@@ -137,6 +136,7 @@ if __name__ == '__main__':
 	Productions = BIN(Productions, variables=V)
 	Productions = DEL(Productions)
 	Productions = UNIT(Productions, variables=V)
+	
 	print( helper.prettyForm(Productions) )
 	print( len(Productions) )
 	open('out.txt', 'w').write(	helper.prettyForm(Productions) )

@@ -4,4 +4,5 @@ Variables:
 S A B
 Productions:
 S -> A B A;
-A -> e
+A -> e | a;
+B -> e | b

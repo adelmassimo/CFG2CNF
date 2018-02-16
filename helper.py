@@ -3,6 +3,9 @@ import itertools
 
 left, right = 0, 1
 
+def union(lst1, lst2):
+    final_list = list(set().union(lst1, lst2))
+    return final_list
 
 def loadModel(modelPath):
 	file = open(modelPath).read()
@@ -60,7 +63,8 @@ def rewrite(target, production):
  			#now i've got: [] [1] [4] [6] [1 4] [1 6] [4 6] [1 4 6]
  			#erease position corresponding to the target in production right side
  			tadan = [production[right][i] for i in range(len(production[right])) if i not in element]
- 			result.append((production[left], ["e"] if tadan==[] else tadan))
+ 			if tadan != []:
+ 				result.append((production[left], tadan))
 	return result
 
 def dict2Set(dictionary):
