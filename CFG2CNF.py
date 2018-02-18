@@ -109,7 +109,7 @@ def unit_routine(rules, variables):
 	#altrimenti controllo se posso sostituirla in tutte le altre
 	for uni in unitaries:
 		for rule in rules:
-			if uni[right]==rule[left]:
+			if uni[right]==rule[left] and uni[left]!=rule[left]:
 				result.append( (uni[left],rule[right]) )
 	
 	return result
@@ -129,7 +129,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		modelPath = str(sys.argv[1])
 	else:
-		modelPath = 'model3.txt'
+		modelPath = 'model.txt'
 	
 	K, V, Productions = helper.loadModel( modelPath )
 
